@@ -1,0 +1,317 @@
+/* „Часът по история“ — стилове за четене на телефон */
+
+:root{
+  --paper:#f6f1e7;
+  --ink:#26211b;
+  --ink-soft:#5d5347;
+  --rule:#ddd2bf;
+  --accent:#8c3a2b;
+  --accent-soft:#f0e4d8;
+  --board:#2f3a33;
+  --board-ink:#eef3ee;
+  --doc-bg:#fbf7ef;
+  --fs:1.075rem;
+  --measure:34rem;
+}
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#14110e;
+    --ink:#e6ddd0;
+    --ink-soft:#a89a88;
+    --rule:#3a332a;
+    --accent:#d98a72;
+    --accent-soft:#241d18;
+    --board:#1d241f;
+    --board-ink:#dce7dd;
+    --doc-bg:#1b1713;
+  }
+}
+
+*{box-sizing:border-box}
+
+html{-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:var(--fs);
+  line-height:1.72;
+  text-rendering:optimizeLegibility;
+}
+
+/* ---------------------------------------------------------- топбар */
+
+.topbar{
+  position:sticky; top:0; z-index:20;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:.5rem;
+  padding:.55rem max(1rem,env(safe-area-inset-left)) .55rem max(1rem,env(safe-area-inset-right));
+  background:color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter:saturate(1.4) blur(8px);
+  border-bottom:1px solid var(--rule);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:.82rem;
+}
+.topbar-home{color:var(--ink-soft); text-decoration:none; font-weight:600}
+.topbar-home span{margin-left:.15rem}
+.topbar-tools{display:flex; gap:.35rem}
+.tool{
+  font:inherit; font-weight:600;
+  border:1px solid var(--rule); background:transparent; color:var(--ink-soft);
+  border-radius:.5rem; padding:.2rem .55rem; cursor:pointer;
+  min-width:2.4rem; min-height:2rem;
+}
+.tool:active{background:var(--accent-soft)}
+
+.progress{position:sticky; top:2.9rem; z-index:19; height:2px; background:transparent}
+.progress-bar{height:2px; width:0; background:var(--accent); transition:width .1s linear}
+
+/* ---------------------------------------------------------- четене */
+
+.reader{
+  max-width:var(--measure);
+  margin:0 auto;
+  padding:1.2rem max(1.15rem,env(safe-area-inset-left)) 3rem max(1.15rem,env(safe-area-inset-right));
+}
+
+.kicker{
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:.72rem; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--ink-soft); margin:.2rem 0 .1rem;
+}
+.chno{
+  font-family:system-ui,sans-serif; font-size:.75rem;
+  color:var(--ink-soft); margin:0 0 1.1rem;
+}
+.chapter-title{
+  font-size:1.95rem; line-height:1.18; margin:.2rem 0 .8rem;
+  letter-spacing:-.01em;
+}
+.problem{
+  margin:0 0 1.8rem; padding:.75rem .9rem;
+  border-left:3px solid var(--accent);
+  background:var(--accent-soft);
+  font-style:italic; color:var(--ink-soft);
+  font-size:.95rem; line-height:1.55;
+  border-radius:0 .4rem .4rem 0;
+}
+
+.reader p{margin:0 0 1.05rem}
+.reader p + p{text-indent:0}
+
+/* реплики в диалог: тире в началото */
+.reader p:has(+p) {}
+
+/* ---------------------------------------------------------- секции */
+
+.sec{margin:2.2rem 0}
+.sec-title{
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:.74rem; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-soft);
+  display:flex; align-items:center; gap:.75rem;
+  margin:0 0 1.1rem;
+}
+.sec-title::after{content:""; flex:1; height:1px; background:var(--rule)}
+
+.sec--truden .sec-title{color:var(--accent)}
+.sec--truden .sec-title::after{background:color-mix(in srgb,var(--accent) 35%,transparent)}
+
+/* „На дъската“ — тъмна карта */
+.sec--daska{
+  background:var(--board); color:var(--board-ink);
+  border-radius:.9rem; padding:1.15rem 1.15rem .5rem;
+  margin:2.6rem 0 1.6rem;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:.94rem; line-height:1.62;
+}
+.sec--daska .sec-title{color:color-mix(in srgb,var(--board-ink) 70%,transparent)}
+.sec--daska .sec-title::after{background:color-mix(in srgb,var(--board-ink) 22%,transparent)}
+.sec--daska h3,.sec--daska p strong,.sec--daska strong{color:#fff}
+@media (prefers-color-scheme: dark){ .sec--daska strong{color:var(--board-ink)} }
+.sec--daska ul{padding-left:1.1rem; margin:.2rem 0 1rem}
+.sec--daska li{margin:.35rem 0}
+.sec--daska p{margin:.4rem 0 .9rem}
+
+/* въпросите на класа */
+.sec--vaprosi{
+  background:color-mix(in srgb,var(--accent-soft) 55%,transparent);
+  border-radius:.9rem; padding:1.1rem 1.1rem .35rem;
+  margin:2.4rem 0;
+}
+.sec--vaprosi .sec-title{color:var(--accent)}
+.sec--vaprosi .sec-title::after{background:color-mix(in srgb,var(--accent) 30%,transparent)}
+
+/* задача */
+.sec--zadacha{
+  border:1px dashed var(--rule); border-radius:.9rem;
+  padding:1.05rem 1.1rem .3rem;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:.93rem; line-height:1.6;
+}
+
+/* последната сцена — по-тихо */
+.sec--zvanets-kraj{
+  border-top:1px solid var(--rule); padding-top:1.4rem;
+}
+
+/* ---------------------------------------------------------- извори */
+
+.reader blockquote{
+  margin:1.1rem 0; padding:.95rem 1rem .6rem;
+  background:var(--doc-bg);
+  border:1px solid var(--rule);
+  border-left:4px solid var(--accent);
+  border-radius:.2rem .7rem .7rem .2rem;
+  font-size:.96rem; line-height:1.62;
+}
+.reader blockquote p{margin:0 0 .7rem}
+.reader blockquote strong{letter-spacing:.01em}
+.reader blockquote ol,.reader blockquote ul{padding-left:1.15rem; margin:.3rem 0 .8rem}
+
+.reader hr{
+  border:0; height:1px; background:var(--rule);
+  margin:1.5rem 0; opacity:.55;
+}
+
+.reader em{color:var(--ink-soft)}
+
+.reader h2{font-size:1.15rem}
+.reader h3{font-size:1rem; margin:1.4rem 0 .5rem}
+
+.reader ol,.reader ul{padding-left:1.25rem; margin:0 0 1.05rem}
+.reader li{margin:.3rem 0}
+
+.reader table{
+  width:100%; border-collapse:collapse; margin:1rem 0 1.3rem;
+  font-family:system-ui,sans-serif; font-size:.85rem; line-height:1.45;
+  display:block; overflow-x:auto;
+}
+.reader th,.reader td{
+  border:1px solid var(--rule); padding:.45rem .55rem; text-align:left;
+  vertical-align:top;
+}
+.reader th{background:var(--accent-soft); font-weight:700}
+
+.reader code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:.86em; background:var(--accent-soft);
+  padding:.1rem .3rem; border-radius:.25rem;
+}
+.reader pre{
+  background:var(--doc-bg); border:1px solid var(--rule);
+  border-radius:.6rem; padding:.9rem; overflow-x:auto; font-size:.82rem;
+}
+.reader pre code{background:none; padding:0}
+
+/* ------------------------------------------------- мета в края */
+
+.chapter-meta{
+  margin-top:2.4rem; padding-top:1.1rem; border-top:1px solid var(--rule);
+  font-family:system-ui,sans-serif; font-size:.8rem; color:var(--ink-soft);
+}
+.meta-row{margin:.25rem 0}
+.chips{display:flex; flex-wrap:wrap; gap:.35rem; margin-top:.7rem}
+.chip{
+  border:1px solid var(--rule); border-radius:1rem;
+  padding:.15rem .6rem; font-size:.75rem;
+}
+
+/* ---------------------------------------------------------- пагинация */
+
+.pager{
+  max-width:var(--measure); margin:0 auto;
+  display:flex; gap:.5rem; align-items:stretch;
+  padding:0 max(1.15rem,env(safe-area-inset-left)) 1.5rem;
+  font-family:system-ui,sans-serif; font-size:.85rem;
+}
+.nav-btn{
+  flex:1; text-align:center; text-decoration:none;
+  border:1px solid var(--rule); border-radius:.7rem;
+  padding:.75rem .5rem; color:var(--ink); background:transparent;
+}
+.nav-btn--mid{flex:0 0 auto; padding:.75rem .9rem; color:var(--ink-soft)}
+.nav-btn--off{opacity:.35}
+.nav-btn:active{background:var(--accent-soft)}
+
+/* ---------------------------------------------------------- начало */
+
+.home{
+  max-width:var(--measure); margin:0 auto;
+  padding:2rem max(1.15rem,env(safe-area-inset-left)) 3rem;
+}
+.hero h1{
+  font-size:2.3rem; line-height:1.1; margin:0 0 .35rem; letter-spacing:-.02em;
+}
+.hero-sub{
+  margin:0 0 1.6rem; color:var(--ink-soft); font-size:.98rem; font-style:italic;
+}
+.resume{
+  font-family:system-ui,sans-serif; font-size:.85rem;
+  background:var(--accent-soft); border-radius:.7rem;
+  padding:.7rem .85rem; margin:0 0 1.2rem;
+}
+.resume a{color:var(--accent); font-weight:600}
+
+.statusbox{
+  font-family:system-ui,sans-serif; font-size:.85rem; color:var(--ink-soft);
+  border:1px solid var(--rule); border-radius:.7rem;
+  padding:.75rem .85rem; margin:0 0 2rem;
+}
+.statusbox p{margin:0 0 .55rem}
+.mini-progress{height:5px; background:var(--rule); border-radius:3px; overflow:hidden}
+.mini-progress i{display:block; height:5px; background:var(--accent)}
+
+.toc-group{margin:0 0 2.2rem}
+.toc-group h2{
+  font-family:system-ui,sans-serif; font-size:.73rem; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft);
+  margin:0 0 .8rem; padding-bottom:.4rem; border-bottom:1px solid var(--rule);
+}
+.toc{list-style:none; margin:0; padding:0}
+.toc li{border-bottom:1px solid color-mix(in srgb,var(--rule) 55%,transparent)}
+.toc li:last-child{border-bottom:0}
+.toc a{
+  display:flex; gap:.85rem; align-items:baseline;
+  padding:.85rem .25rem; text-decoration:none; color:var(--ink);
+}
+.toc a:active{background:var(--accent-soft)}
+.toc-num{
+  font-family:system-ui,sans-serif; font-size:.78rem; font-weight:700;
+  color:var(--accent); min-width:1.7rem;
+}
+.toc-text{display:flex; flex-direction:column; gap:.15rem}
+.toc-title{font-size:1.02rem; line-height:1.3}
+.toc-q{
+  font-family:system-ui,sans-serif; font-size:.79rem; line-height:1.4;
+  color:var(--ink-soft);
+}
+.toc a.is-read .toc-title{color:var(--ink-soft)}
+.toc a.is-read .toc-num::after{content:" ✓"; font-size:.7rem}
+
+/* ---------------------------------------------------------- футър */
+
+.foot{
+  max-width:var(--measure); margin:0 auto;
+  padding:1.5rem max(1.15rem,env(safe-area-inset-left)) 2.5rem;
+  font-family:system-ui,sans-serif; font-size:.75rem; color:var(--ink-soft);
+  border-top:1px solid var(--rule);
+}
+.foot a{color:var(--accent)}
+
+/* по-широк екран */
+@media (min-width:46rem){
+  :root{--fs:1.12rem; --measure:36rem}
+  .chapter-title{font-size:2.4rem}
+  .hero h1{font-size:3rem}
+}
+
+@media print{
+  .topbar,.pager,.progress,.statusbox{display:none}
+  body{background:#fff; color:#000}
+  .sec--daska{background:#eee; color:#000}
+}
