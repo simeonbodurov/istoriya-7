@@ -56,11 +56,11 @@
 
   /* ---------- запомняне докъде сме стигнали ---------- */
 
-  var reader = document.querySelector(".reader[data-chapter]");
+  var reader = document.querySelector(".reader[data-page]");
   if (reader) {
-    var n = parseInt(reader.getAttribute("data-chapter"), 10);
-    if (!isNaN(n)) {
-      set(LS.last, String(n));
+    var page = reader.getAttribute("data-page");
+    if (page) {
+      set(LS.last, page);
       var marked = false;
       window.addEventListener("scroll", function () {
         if (marked) return;
@@ -70,7 +70,7 @@
           marked = true;
           var read = get(LS.read, "");
           var arr = read ? read.split(",") : [];
-          if (arr.indexOf(String(n)) === -1) arr.push(String(n));
+          if (arr.indexOf(page) === -1) arr.push(page);
           set(LS.read, arr.join(","));
         }
       }, { passive: true });
@@ -83,16 +83,15 @@
   if (resume) {
     var last = get(LS.last, "");
     if (last) {
-      var num = ("0" + last).slice(-2);
-      var link = document.querySelector('a[href="glava-' + num + '.html"]');
-      var title = link ? link.querySelector(".toc-title").textContent : "глава " + last;
-      resume.innerHTML = "Продължи от <a href=\"glava-" + num + ".html\">"
-        + title + "</a>";
-      resume.hidden = false;
+      var link = document.querySelector('a[href="' + last + '"]');
+      if (link) {
+        resume.innerHTML = "Продължи от <a href=\"" + last + "\">"
+          + link.querySelector(".toc-title").textContent + "</a>";
+        resume.hidden = false;
+      }
     }
-    var readArr = get(LS.read, "").split(",").filter(Boolean);
-    readArr.forEach(function (r) {
-      var a = document.querySelector('a[href="glava-' + ("0" + r).slice(-2) + '.html"]');
+    get(LS.read, "").split(",").filter(Boolean).forEach(function (r) {
+      var a = document.querySelector('a[href="' + r + '"]');
       if (a) a.classList.add("is-read");
     });
   }
