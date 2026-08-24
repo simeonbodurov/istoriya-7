@@ -215,7 +215,8 @@ body{
   font-family:system-ui,sans-serif; font-size:.8rem; color:var(--ink-soft);
 }
 .meta-row{margin:.25rem 0}
-.chips{display:flex; flex-wrap:wrap; gap:.35rem; margin-top:.7rem}
+.chips{display:flex; flex-wrap:wrap; gap:.35rem; margin-top:.7rem;
+  list-style:none; padding:0}
 .chip{
   border:1px solid var(--rule); border-radius:1rem;
   padding:.15rem .6rem; font-size:.75rem;
