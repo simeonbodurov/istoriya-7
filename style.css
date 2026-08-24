@@ -257,6 +257,23 @@ body{
 }
 .resume a{color:var(--accent); font-weight:600}
 
+.blurb{
+  margin:0 0 2.2rem;
+  padding-bottom:1.6rem;
+  border-bottom:1px solid var(--rule);
+  font-size:1.02rem;
+  line-height:1.68;
+}
+.blurb p{margin:0 0 .8rem}
+.blurb p:first-child{font-weight:600}
+.blurb-note{
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:.85rem;
+  color:var(--ink-soft);
+  font-style:italic;
+  margin-bottom:0 !important;
+}
+
 .statusbox{
   font-family:system-ui,sans-serif; font-size:.85rem; color:var(--ink-soft);
   border:1px solid var(--rule); border-radius:.7rem;
@@ -311,7 +328,24 @@ body{
 }
 
 @media print{
-  .topbar,.pager,.progress,.statusbox{display:none}
+  .topbar,.pager,.progress,.blurb{
+  margin:0 0 2.2rem;
+  padding-bottom:1.6rem;
+  border-bottom:1px solid var(--rule);
+  font-size:1.02rem;
+  line-height:1.68;
+}
+.blurb p{margin:0 0 .8rem}
+.blurb p:first-child{font-weight:600}
+.blurb-note{
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:.85rem;
+  color:var(--ink-soft);
+  font-style:italic;
+  margin-bottom:0 !important;
+}
+
+.statusbox{display:none}
   body{background:#fff; color:#000}
   .sec--daska{background:#eee; color:#000}
 }
