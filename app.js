@@ -21,14 +21,17 @@
   /* ---------- размер на шрифта ---------- */
 
   var STEPS = [0.94, 1.0, 1.075, 1.16, 1.26, 1.38];
-  var idx = parseInt(get(LS.font, "2"), 10);
+  var stored = get(LS.font, null);
+  var idx = stored === null ? 2 : parseInt(stored, 10);
   if (isNaN(idx) || idx < 0 || idx >= STEPS.length) idx = 2;
 
   function applyFont() {
     document.documentElement.style.setProperty("--fs", STEPS[idx] + "rem");
     set(LS.font, String(idx));
   }
-  applyFont();
+  // Ако читателят още не е избирал размер, оставяме стила да реши —
+  // така на широк екран остава по-едрият шрифт от медийното правило.
+  if (stored !== null) applyFont();
 
   var minus = document.getElementById("fontMinus");
   var plus = document.getElementById("fontPlus");
