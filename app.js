@@ -110,4 +110,25 @@
     var a = document.querySelector(sel);
     if (a) window.location.href = a.getAttribute("href");
   });
+
+  /* --- връщане след кръстосана препратка --- */
+  try {
+    var ref = document.referrer || "";
+    var cameFromChapter = ref && /glava-|mezhduchasie-/.test(ref) &&
+                          ref.indexOf(location.origin) === 0 &&
+                          ref.split("#")[0] !== location.href.split("#")[0];
+    if (cameFromChapter && history.length > 1) {
+      var bar = document.querySelector(".topbar");
+      if (bar) {
+        var back = document.createElement("button");
+        back.className = "tool tool--back";
+        back.type = "button";
+        back.textContent = "\u2190 назад";
+        back.title = "обратно към главата, от която дойдохте";
+        back.addEventListener("click", function () { history.back(); });
+        bar.appendChild(back);
+      }
+    }
+  } catch (e) {}
+
 })();

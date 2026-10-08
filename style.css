@@ -45,6 +45,62 @@ body,.reader,.reader *,.home,.blurb,.foot{
 }
 ::selection{background:color-mix(in srgb,var(--accent) 28%,transparent)}
 
+/* указател */
+.az{
+  font-family:system-ui,sans-serif; font-size:.95em; letter-spacing:.08em;
+  margin:0 0 1.2rem; line-height:2;
+}
+.az a{
+  color:var(--accent); text-decoration:none; font-weight:700;
+  padding:.15rem .35rem; border:1px solid var(--rule); border-radius:.3rem;
+}
+.az a:hover{background:var(--accent-soft)}
+ul.index{list-style:none; padding:0; margin:0 0 1.4rem; columns:1}
+ul.index li{
+  margin:0 0 .45rem; padding-bottom:.35rem;
+  border-bottom:1px dotted var(--rule);
+  display:flex; gap:.6rem; justify-content:space-between; align-items:baseline;
+}
+.idx-where{
+  font-family:system-ui,sans-serif; font-size:.78em; white-space:nowrap;
+  color:var(--ink-soft);
+}
+.idx-where a{color:var(--accent); text-decoration:none; margin-left:.3rem}
+.idx-where a:hover{text-decoration:underline}
+ul.index--dates li b{font-variant-numeric:tabular-nums}
+@media (min-width:46rem){ ul.index{columns:2; column-gap:2.4rem} 
+  ul.index li{break-inside:avoid} }
+
+/* кръстосана препратка към друга глава */
+.tool--back{
+  margin-left:auto;
+  font-weight:600;
+}
+
+.xref{
+  color:inherit;
+  text-decoration:none;
+  border-bottom:1px dotted var(--accent);
+  padding-bottom:1px;
+}
+.xref:hover,.xref:focus{
+  background:var(--accent-soft);
+  border-bottom-style:solid;
+}
+.xref::after{
+  content:"\00a0↗";
+  font-size:.72em;
+  color:var(--accent);
+  vertical-align:.15em;
+}
+/* целта на препратката се отбелязва за миг, за да се намери с поглед */
+:target{
+  background:var(--accent-soft);
+  outline:3px solid var(--accent-soft);
+  border-radius:.2rem;
+  scroll-margin-top:4.5rem;
+}
+
 html{-webkit-text-size-adjust:100%}
 
 body{
