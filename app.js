@@ -118,17 +118,35 @@
                           ref.indexOf(location.origin) === 0 &&
                           ref.split("#")[0] !== location.href.split("#")[0];
     if (cameFromChapter && history.length > 1) {
-      var bar = document.querySelector(".topbar");
-      if (bar) {
+      var tools = document.querySelector(".topbar-tools") ||
+                  document.querySelector(".topbar");
+      if (tools) {
         var back = document.createElement("button");
         back.className = "tool tool--back";
         back.type = "button";
-        back.textContent = "\u2190 назад";
+        back.textContent = "\u2190";
+        back.setAttribute("aria-label", "назад към предишната глава");
         back.title = "обратно към главата, от която дойдохте";
         back.addEventListener("click", function () { history.back(); });
-        bar.appendChild(back);
+        tools.appendChild(back);
       }
     }
   } catch (e) {}
+
+
+  /* --- височината на горната лента, за да не се застъпва нищо --- */
+  function syncTopbar() {
+    var bar = document.querySelector(".topbar");
+    if (!bar) return;
+    document.documentElement.style.setProperty(
+      "--topbar-h", bar.offsetHeight + "px");
+  }
+  syncTopbar();
+  window.addEventListener("resize", syncTopbar);
+  window.addEventListener("orientationchange", syncTopbar);
+  if (window.ResizeObserver) {
+    var bar0 = document.querySelector(".topbar");
+    if (bar0) new ResizeObserver(syncTopbar).observe(bar0);
+  }
 
 })();

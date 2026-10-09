@@ -29,6 +29,7 @@
 }
 
 *{box-sizing:border-box}
+html{scroll-padding-top:calc(var(--topbar-h,2.9rem) + .5rem)}
 
 /* изрично разрешаване на маркиране и копиране на текст */
 body,.reader,.reader *,.home,.blurb,.foot{
@@ -72,10 +73,7 @@ ul.index--dates li b{font-variant-numeric:tabular-nums}
   ul.index li{break-inside:avoid} }
 
 /* кръстосана препратка към друга глава */
-.tool--back{
-  margin-left:auto;
-  font-weight:600;
-}
+.tool--back{font-weight:700}
 
 .xref{
   color:inherit;
@@ -98,7 +96,7 @@ ul.index--dates li b{font-variant-numeric:tabular-nums}
   background:var(--accent-soft);
   outline:3px solid var(--accent-soft);
   border-radius:.2rem;
-  scroll-margin-top:4.5rem;
+  scroll-margin-top:calc(var(--topbar-h,2.9rem) + 1rem);
 }
 
 html{-webkit-text-size-adjust:100%}
@@ -116,28 +114,35 @@ body{
 /* ---------------------------------------------------------- топбар */
 
 .topbar{
-  position:sticky; top:0; z-index:20;
+  position:sticky; top:0; z-index:30;
   display:flex; align-items:center; justify-content:space-between;
-  gap:.5rem;
-  padding:.55rem max(1rem,env(safe-area-inset-left)) .55rem max(1rem,env(safe-area-inset-right));
-  background:color-mix(in srgb, var(--paper) 92%, transparent);
-  backdrop-filter:saturate(1.4) blur(8px);
+  flex-wrap:nowrap; gap:.4rem;
+  padding:.5rem max(.8rem,env(safe-area-inset-left)) .5rem max(.8rem,env(safe-area-inset-right));
+  padding-top:calc(.5rem + env(safe-area-inset-top,0px));
+  background:var(--paper);          /* плътен фон — текстът не прозира */
   border-bottom:1px solid var(--rule);
   font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   font-size:.82rem;
+  min-height:2.9rem;
 }
-.topbar-home{color:var(--ink-soft); text-decoration:none; font-weight:600}
+/* заглавието и съдържанието минават ПОД лентата, не върху нея */
+.reader,.home{position:relative; z-index:1}
+.topbar-home{
+  color:var(--ink-soft); text-decoration:none; font-weight:600;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0;
+}
 .topbar-home span{margin-left:.15rem}
-.topbar-tools{display:flex; gap:.35rem}
+@media (max-width:26rem){ .topbar-home span{display:none} }
+.topbar-tools{display:flex; gap:.3rem; flex:0 0 auto}
 .tool{
   font:inherit; font-weight:600;
   border:1px solid var(--rule); background:transparent; color:var(--ink-soft);
-  border-radius:.5rem; padding:.2rem .55rem; cursor:pointer;
-  min-width:2.4rem; min-height:2rem;
+  border-radius:.5rem; padding:.2rem .5rem; cursor:pointer;
+  min-width:2.2rem; min-height:2rem; white-space:nowrap;
 }
 .tool:active{background:var(--accent-soft)}
 
-.progress{position:sticky; top:2.9rem; z-index:19; height:2px; background:transparent}
+.progress{position:sticky; top:var(--topbar-h,2.9rem); z-index:29; height:2px; background:transparent}
 .progress-bar{height:2px; width:0; background:var(--accent); transition:width .1s linear}
 
 /* ---------------------------------------------------------- четене */
